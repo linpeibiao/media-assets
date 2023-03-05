@@ -10,4 +10,11 @@ import com.xiaohu.media_assets.model.domain.Media;
 */
 public interface MediaService extends IService<Media> {
 
+
+    /**
+     * 获取资源的访问地址
+     * @param mediaId
+     * @return
+     */
+    String getUrl(Long mediaId);
 }

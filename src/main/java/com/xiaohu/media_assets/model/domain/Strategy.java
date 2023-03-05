@@ -37,8 +37,8 @@ public class Strategy implements Serializable {
     /**
      * 角色要求
      */
-    @TableField(value = "role")
-    private String role;
+    @TableField(value = "role_name")
+    private String roleName;
 
     /**
      * 时间要求

@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.xiaohu.media_assets.constant.UserRole;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -86,7 +87,7 @@ public class User implements Serializable {
      * 角色名称
      */
     @TableField(value = "role_name")
-    private String roleName;
+    private UserRole roleName;
 
     /**
      * 备用字段1

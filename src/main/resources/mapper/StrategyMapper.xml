@@ -8,7 +8,7 @@
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="strategyName" column="strategy_name" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
-            <result property="role" column="role" jdbcType="VARCHAR"/>
+            <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
             <result property="timeRequire" column="time_require" jdbcType="TIMESTAMP"/>
             <result property="outher" column="outher" jdbcType="VARCHAR"/>
             <result property="backup1" column="backup1" jdbcType="VARCHAR"/>
@@ -22,7 +22,7 @@
 
     <sql id="Base_Column_List">
         id,strategy_name,description,
-        role,time_require,outher,
+        role_name,time_require,outher,
         backup1,backup2,remark,
         is_deleted,create_time,update_time,
         version
