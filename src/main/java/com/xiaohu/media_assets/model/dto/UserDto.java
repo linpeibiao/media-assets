@@ -56,9 +56,14 @@ public class UserDto {
     private Integer status;
 
     /**
-     * 用户角色
+     * 用户角色ID
      */
-    private UserRole userRole;
+    private Long roleId;
+
+    /**
+     * 角色名称
+     */
+    private UserRole roleName;
 
     private String remark;
 }

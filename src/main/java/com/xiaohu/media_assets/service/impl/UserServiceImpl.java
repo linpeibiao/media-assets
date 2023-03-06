@@ -159,6 +159,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         if (StringUtils.isAnyEmpty(account, password)){
             throw new BusinessException(ResultCode.PARAMS_ERROR);
         }
+        // TODO 应该先判断是否已经登录
+
         // 3. 查询账户
         User user = getOne(new QueryWrapper<User>().eq("account", account));
         if (user == null){
