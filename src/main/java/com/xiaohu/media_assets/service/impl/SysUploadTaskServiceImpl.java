@@ -63,6 +63,7 @@ public class SysUploadTaskServiceImpl extends ServiceImpl<SysUploadTaskMapper, S
         objectMetadata.setContentType(contentType);
         InitiateMultipartUploadResult initiateMultipartUploadResult = amazonS3
                 .initiateMultipartUpload(new InitiateMultipartUploadRequest(bucketName, key).withObjectMetadata(objectMetadata));
+        // 得到整个文件上传的标识ID
         String uploadId = initiateMultipartUploadResult.getUploadId();
 
         SysUploadTask task = new SysUploadTask();
@@ -91,7 +92,10 @@ public class SysUploadTaskServiceImpl extends ServiceImpl<SysUploadTaskMapper, S
         if (task == null) {
             return null;
         }
-        TaskInfoDTO result = new TaskInfoDTO().setFinished(true).setTaskRecord(TaskRecordDTO.convertFromEntity(task)).setPath(getPath(task.getBucketName(), task.getObjectKey()));
+        TaskInfoDTO result = new TaskInfoDTO()
+                .setFinished(true)
+                .setTaskRecord(TaskRecordDTO.convertFromEntity(task))
+                .setPath(getPath(task.getBucketName(), task.getObjectKey()));
 
         boolean doesObjectExist = amazonS3.doesObjectExist(task.getBucketName(), task.getObjectKey());
         if (!doesObjectExist) {
@@ -120,7 +124,7 @@ public class SysUploadTaskServiceImpl extends ServiceImpl<SysUploadTaskMapper, S
     public void merge(String identifier) {
         SysUploadTask task = getByIdentifier(identifier);
         if (task == null) {
-            throw new RuntimeException("分片任务不存");
+            throw new RuntimeException("分片任务不存在");
         }
 
         ListPartsRequest listPartsRequest = new ListPartsRequest(task.getBucketName(), task.getObjectKey(), task.getUploadId());
@@ -134,7 +138,10 @@ public class SysUploadTaskServiceImpl extends ServiceImpl<SysUploadTaskMapper, S
                 .withUploadId(task.getUploadId())
                 .withKey(task.getObjectKey())
                 .withBucketName(task.getBucketName())
-                .withPartETags(parts.stream().map(partSummary -> new PartETag(partSummary.getPartNumber(), partSummary.getETag())).collect(Collectors.toList()));
+                // 表示要合并哪些分块
+                .withPartETags(parts.stream()
+                        .map(partSummary -> new PartETag(partSummary.getPartNumber(), partSummary.getETag()))
+                        .collect(Collectors.toList()));
         CompleteMultipartUploadResult result = amazonS3.completeMultipartUpload(completeMultipartUploadRequest);
     }
 }
