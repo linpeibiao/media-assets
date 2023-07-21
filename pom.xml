@@ -92,6 +92,7 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.7</version>
         </dependency>
+        <!-- 对象存储服务API -->
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-s3</artifactId>
