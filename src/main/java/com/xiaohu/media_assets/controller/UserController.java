@@ -87,7 +87,7 @@ public class UserController {
     }
 
     @ApiOperation("获取用户列表")
-    @GetMapping("/list-by-ids")
+    @PostMapping("/list-by-ids")
     public Result<List<User>> getUserList(@RequestBody List<Long> userIdList){
         List<User> userList = userService.listByIds(userIdList);
         return Result.success(userList);

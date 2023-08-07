@@ -1,5 +1,6 @@
 package com.xiaohu.media_assets.model.result;
 
+import com.xiaohu.media_assets.exception.BusinessException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,6 +45,10 @@ public class Result<T> {
 
     public static Result fail(ResultCode resultCode) {
         return new Result(resultCode.getCode(), resultCode.getMessage(), null);
+    }
+
+    public static Result fail(BusinessException e) {
+        return new Result(e.getCode(), e.getMessage(), null);
     }
 
     protected static <T> Result<T> build(T data) {
